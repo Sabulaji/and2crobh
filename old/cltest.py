@@ -12,7 +12,7 @@ def SendComand(cmd):
 	s.send(cmd)
 	s.close
 
-while 1:	
+while 1:
 	cmd = raw_input("command:")
 	if cmd == "quit":quit()
 	SendComand(cmd)
