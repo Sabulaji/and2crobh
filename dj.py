@@ -1,4 +1,4 @@
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 from time import sleep
 
 class dj:
@@ -12,25 +12,27 @@ class dj:
 		self.name = name
 		self.pin = dj.pins[self.name]
 		self.angle = dj.angles[self.name]
-		#GPIO.setmode(GPIO.BCM)
-		#GPIO.setup(self.pin,GPIO.OUT)
-		#GPIO.PWM(self.pin,dj.hz).start(self.angle2dutycycle(self.angle))
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setup(int(self.pin),GPIO.OUT)
+		self.name = GPIO.PWM(int(self.pin),dj.hz)
+		self.name.start(self.angle2dutycycle(self.angle))
 		print ("dj.init()")
 
 	def inc(self):
 		self.angle += 5
-		#GPIO.PWM(self.pin,dj.hz).ChangeDutyCycle(self.angle2dutycycle(self.angle))
+		self.name.ChangeDutyCycle(self.angle2dutycycle(self.angle))
 		sleep(dj.pause_time)
-		print ("dj.inc()")
+		# print ("dj.inc()")
 
 	def dec(self):
 		self.angle -= 5
-		#GPIO.PWM(self.pin,dj.hz).ChangeDutyCycle(self.angle2dutycycle(self.angle))
+		self.name.ChangeDutyCycle(self.angle2dutycycle(self.angle))
 		sleep(dj.pause_time)
-		self.angle2dutycycle(self.angle)
-		print ("dj.dec()")
+		# self.angle2dutycycle(self.angle)
+		# print ("dj.dec()")
 
 	def angle2dutycycle(self,angle):
 		dutycycle = (angle * 11 + 500)/200.0
-		print dutycycle
+		# print dutycycle
 		return dutycycle
+

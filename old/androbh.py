@@ -47,7 +47,7 @@ u++;i++;}fprintf   (q,    d,k,           u      >>1,i>>1,r);u  = k-5?8:4;k=3;}el
 
 import RPi.GPIO as GPIO
 from time import sleep
-from socket import * 
+from socket import *
 import sys
 import fcntl
 import struct

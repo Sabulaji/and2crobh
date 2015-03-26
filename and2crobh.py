@@ -1,6 +1,10 @@
-form robh import *
+from robh import *
+import RPi.GPIO as GPIO
+from socket import *
+import fcntl
+import struct
 
-a = '''
+akalin = '''
                                        /*
                                       +
                                      +
@@ -56,15 +60,55 @@ commands = {
     "d":robh().d
 }
 
-def run():
-	print command
+def run(command):
+	# print command
 
 	try:
 		commands[command]()
 	except Exception,e:
 		print "Oops",e
 
+def get_ip_address(ifname):
+    s = socket(AF_INET, SOCK_DGRAM)
+    return inet_ntoa(fcntl.ioctl(
+        s.fileno(),
+        0x8915,  # SIOCGIFADDR
+        struct.pack('256s', ifname[:15])
+    )[20:24])
+
 ###################################################################################################
 
+#Main
+
+print akalin
+
+HOST = get_ip_address('wlan0')
+print HOST
+
+PORT = 8888
+s = socket(AF_INET,SOCK_STREAM)
+s.bind((HOST,PORT))
+s.listen(1)
+
+print ("listening on 8888")
+print ("ctrl+c to quit")
+
+try:
+	while 1:
+		c,addr = s.accept()
+		print ("Connected by:",addr)
+		while 1:
+			command = c.recv(2).replace('\n','')
+			if not command:
+				break
+			run(command)
+		c.close()
+
+
+except KeyboardInterrupt:
+	pass
+
+GPIO.cleanup()
+s.close()
 
 

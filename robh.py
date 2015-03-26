@@ -5,7 +5,7 @@ class robh:
 
 	def w(self):
 		robh.djs[1].dec()
-		print ("robh.w()")
+		#print ("robh.w()")
 
 	def s(self):
 		robh.djs[1].inc()
@@ -21,3 +21,4 @@ class robh:
 
 	def l(self):
 		robh.djs[0].dec()
+

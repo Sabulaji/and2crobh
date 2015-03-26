@@ -33,7 +33,7 @@ def run(command):
 
 
 
-command = raw_input("run command:")
-run(command)
+# command = raw_input("run command:")
+# run(command)
 
-
+# dj().end()
